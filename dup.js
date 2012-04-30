@@ -2,10 +2,12 @@
 var dup = require('./lib/dup');
 var cli = require('cli');
 
-cli.parse({
-    verbose: ['v', 'Produce verbose output'],
-    'no-checksum': [false, 'Do not compute checksum'],
-});
+cli
+    .setUsage('dup [options] [<path>...]')
+    .parse({
+        verbose: ['v', 'Produce verbose output'],
+        'no-checksum': [false, 'Do not compute checksum'],
+    });
 
 /*
 dup.find_dup(path, function(err, hashes) {
