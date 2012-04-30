@@ -28,7 +28,8 @@ cli.main(function(args, options) {
     //
 
     dup.verbose = options.verbose;
-    var hashes = dup.find_dup_sync(args[0] || '.');
+    dup.checksum = !options['no-checksum'];
+    var hashes = dup.find_dup_sync(args);
     for(var key in hashes) {
         if (hashes[key].length >= 2) {
             console.log(key + ' bytes:');
