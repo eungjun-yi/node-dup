@@ -4,6 +4,7 @@ var cli = require('cli');
 
 cli.parse({
     verbose: ['v', 'Produce verbose output'],
+    'no-checksum': [false, 'Do not compute checksum'],
 });
 
 /*
