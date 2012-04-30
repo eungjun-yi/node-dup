@@ -1,28 +1,10 @@
+#!env node
 var dup = require('./lib/dup');
+var cli = require('cli');
 
-path = process.argv[2];
-
-if (!path) {
-    path = '.';
-}
-
-// Output format:
-//
-// n bytes:
-//         file1
-//         file2
-//         ...
-// ...
-//
-var hashes = dup.find_dup_sync(path);
-for(var key in hashes) {
-    if (hashes[key].length >= 2) {
-        console.log(key + ' bytes:');
-        hashes[key].forEach(function(item) {
-            console.log('\t' + item);
-        });
-    }
-}
+cli.parse({
+    verbose: ['v', 'Produce verbose output'],
+});
 
 /*
 dup.find_dup(path, function(err, hashes) {
@@ -33,3 +15,25 @@ dup.find_dup(path, function(err, hashes) {
     }
 });
 */
+
+cli.main(function(args, options) {
+    // Output format:
+    //
+    // n bytes:
+    //         file1
+    //         file2
+    //         ...
+    // ...
+    //
+
+    dup.verbose = options.verbose;
+    var hashes = dup.find_dup_sync(args[0] || '.');
+    for(var key in hashes) {
+        if (hashes[key].length >= 2) {
+            console.log(key + ' bytes:');
+            hashes[key].forEach(function(item) {
+                console.log('\t' + item);
+            });
+        }
+    }
+});
