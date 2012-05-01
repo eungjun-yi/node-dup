@@ -13,4 +13,18 @@ suite('dup.find_dup_sync', function() {
         // then
         assert.deepEqual(actual, expected);
     });
+
+    test('Find identical files in the given path recursively, not using checksum.', function() {
+        // given
+        var path = ['test/resource'];
+        var expected = { 2: {'': [path + '/a', path + '/b', path + '/c', path + '/d']} };
+        dup.checksum = false;
+
+        // when
+        var actual = dup.find_dup_sync(path);
+        
+        // then
+        assert.deepEqual(actual, expected);
+    });
+
 });
