@@ -1,4 +1,4 @@
-#!env node
+#!/usr/bin/env node
 var dup = require('./lib/dup');
 var cli = require('cli');
 
