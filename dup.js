@@ -32,12 +32,16 @@ cli.main(function(args, options) {
     dup.verbose = options.verbose;
     dup.checksum = !options['no-checksum'];
     var hashes = dup.find_dup_sync(args);
-    for(var key in hashes) {
-        if (hashes[key].length >= 2) {
-            console.log(key + ' bytes:');
-            hashes[key].forEach(function(item) {
-                console.log('\t' + item);
-            });
+    for(var size in hashes) {
+        for (var checksum in hashes[size]) {
+            if (hashes[size][checksum].length >= 2) {
+                if (checksum) {
+                    console.log(size + ' bytes, ' + checksum + ':');
+                } else {
+                    console.log(size + ' bytes:');
+                }
+                console.log('\t' + hashes[size][checksum].join('\n\t'));
+            }
         }
     }
 });
